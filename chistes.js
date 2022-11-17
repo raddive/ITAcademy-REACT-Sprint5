@@ -31,7 +31,8 @@ function ButtonStatus() {
     }
 }
 //Implementación con FETCH y PROMISES
-function NextJoke() {
+function JokeFetch_dad() {
+    console.log("dad_joke");
     fetch('https://icanhazdadjoke.com/', {
         method: "GET",
         headers: { "Accept": 'application/json' }
@@ -43,6 +44,46 @@ function NextJoke() {
         // console.log(json);
     })
         .then(function () { return ButtonStatus(); })["catch"](function () { console.log("Error en la llamada a la API"); });
+}
+function JokeFetch_chuck() {
+    console.log("chuck_joke");
+    fetch('https://api.chucknorris.io/jokes/random', {
+        method: "GET"
+    })
+        .then(function (response) { return response.json(); })
+        .then(function (json) {
+        document.getElementById("currentJoke").innerText = json.value;
+        sActualJoke = json.value;
+        // console.log(json);
+    })
+        .then(function () { return ButtonStatus(); })["catch"](function () { console.log("Error en la llamada a la API"); });
+}
+function JokeFetch_Geek() {
+    console.log("geek_joke");
+    var options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '9f561f8d62msh317d8f745c6a5dbp1fb206jsnb656500f06e9',
+            'X-RapidAPI-Host': 'geek-jokes.p.rapidapi.com'
+        }
+    };
+    fetch('https://geek-jokes.p.rapidapi.com/api?format=json', options)
+        .then(function (response) { return response.json(); })
+        .then(function (json) {
+        document.getElementById("currentJoke").innerText = json.joke;
+        sActualJoke = json.joke;
+        // console.log(json);
+    })
+        .then(function () { return ButtonStatus(); })["catch"](function (err) { return console.error(err); });
+}
+function NextJoke() {
+    var iAux = Math.floor(Math.random() * 10);
+    if (iAux >= 0 && iAux < 3)
+        JokeFetch_dad();
+    else if (iAux >= 3 && iAux < 7)
+        JokeFetch_chuck();
+    else if (iAux >= 7 && iAux < 9)
+        JokeFetch_Geek();
 }
 function Score(iScore) {
     // console.log("La puntuación ha sido " + iScore);

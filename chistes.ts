@@ -45,8 +45,9 @@ function ButtonStatus(){
 }
 
 //Implementación con FETCH y PROMISES
-function NextJoke():void {
 
+function JokeFetch_dad(){
+    console.log("dad_joke");
     fetch('https://icanhazdadjoke.com/', {
         method: "GET",
         headers: {"Accept": 'application/json'  }})
@@ -58,6 +59,54 @@ function NextJoke():void {
                     })
         .then( () => ButtonStatus())
         .catch( () => {console.log("Error en la llamada a la API")});
+}
+
+function JokeFetch_chuck(){
+    console.log("chuck_joke");
+    fetch('https://api.chucknorris.io/jokes/random', {
+        method: "GET")
+        .then(response => response.json())
+        .then(json => {
+                        document.getElementById("currentJoke").innerText = json.value;
+                        sActualJoke=json.value;
+                        // console.log(json);
+                    })
+        .then( () => ButtonStatus())
+        .catch( () => {console.log("Error en la llamada a la API")});
+}
+
+function JokeFetch_Geek(){
+    console.log("geek_joke");
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '9f561f8d62msh317d8f745c6a5dbp1fb206jsnb656500f06e9',
+            'X-RapidAPI-Host': 'geek-jokes.p.rapidapi.com'
+        }
+    };
+    
+    fetch('https://geek-jokes.p.rapidapi.com/api?format=json', options)
+        .then(response => response.json())
+        .then(json => {
+                        document.getElementById("currentJoke").innerText = json.joke;
+                        sActualJoke=json.joke;
+                        // console.log(json);
+        })
+        .then( () => ButtonStatus())
+        .catch(err => console.error(err));
+}
+
+
+function NextJoke():void {
+
+    let iAux = Math.floor(Math.random() * 10);
+
+    if(iAux>=0 && iAux<3)
+        JokeFetch_dad();
+    else if (iAux>=3 && iAux<7)
+        JokeFetch_chuck();
+    else if (iAux>=7 && iAux<9)
+        JokeFetch_Geek();
 }
 
 function Score(iScore:number) {
