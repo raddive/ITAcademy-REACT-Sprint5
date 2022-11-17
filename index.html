@@ -18,13 +18,27 @@ integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28an
 <body>
 
     <div class="container text-center ">
-        <h4 class="text-start">El tiempo hoy</h4>
+        <h4 class="text-start pt-3">El tiempo hoy</h4>
         <div id="main">
             <div class="row row justify-content-evenly">
                 <div id="jokeCard" class="col-6 my-5 py-5 shadow rounded">
                     <h1>Preparado para reir<span>&#x1F923</span></h1>
-                    <h5 id="currentJoke">_blank_</h1>
-                    <button type="button" class="btn btn-primary p-3 m-3 shadow" onclick="NextJoke()">Siguiente chiste</button>
+                    <h5 id="currentJoke" class="py-3" style="min-height:100px"></h5>
+                    <div class="row justify-content-evenly">
+                        <div class="d-grid gap-1 col-4">
+                            <button id="score1_btn" type="button" class="btn btn-success p-3 m-3 shadow disabled" onclick="Score(1)"><span>&#x2b50</span></button>
+                        </div>
+                        <div class="d-grid gap-1 col-4">
+                            <button id="score2_btn" type="button" class="btn btn-success p-3 m-3 shadow disabled" onclick="Score(2)"><span>&#x2b50</span><span>&#x2b50</span></button>
+                        </div>
+                        <div class="d-grid gap-1 col-4">
+                            <button id="score3_btn" type="button" class="btn btn-success p-3 m-3 shadow disabled" onclick="Score(3)"><span>&#x2b50</span><span>&#x2b50</span><span>&#x2b50</span></button>
+                        </div>
+                        <div class="d-grid gap-1 col-4 offset-8">
+                            <button id="next_btn" type="button" class="btn btn-primary p-3 m-3 shadow" onclick="NextJoke()">Siguiente </button>
+                        </div>
+                        <h5 id="error_txt" class="py-3 text-danger"></h5>
+                    </div>
                 </div>
             </div>
         </div>
