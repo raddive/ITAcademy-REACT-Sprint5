@@ -55,3 +55,23 @@ function Score(iScore) {
         console.log(reportAcudits);
     }
 }
+function GetWeather() {
+    var options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '9f561f8d62msh317d8f745c6a5dbp1fb206jsnb656500f06e9',
+            'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+        }
+    };
+    fetch('https://weatherapi-com.p.rapidapi.com/current.json?q=41.40253730187383,2.1943496844605224', options)
+        .then(function (response) {
+        console.log(response);
+        return response.json();
+    })
+        .then(function (json) {
+        document.getElementById("weather_txt").innerText = json['current']['condition'].text;
+        var image = document.getElementById("weather_ico");
+        image.src = json['current']['condition'].icon.replace('//', 'http://');
+        console.log(json['current']['condition'].icon);
+    })["catch"](function (err) { return console.error(err); });
+}
