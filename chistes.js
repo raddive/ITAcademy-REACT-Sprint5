@@ -77,13 +77,28 @@ function JokeFetch_Geek() {
         .then(function () { return ButtonStatus(); })["catch"](function (err) { return console.error(err); });
 }
 function NextJoke() {
-    var iAux = Math.floor(Math.random() * 10);
-    if (iAux >= 0 && iAux < 3)
-        JokeFetch_dad();
-    else if (iAux >= 3 && iAux < 7)
-        JokeFetch_chuck();
-    else if (iAux >= 7 && iAux < 9)
-        JokeFetch_Geek();
+    var iAux = Math.floor(Math.random() * 3);
+    console.log(iAux);
+    switch (iAux) {
+        case 0:
+            JokeFetch_dad();
+            break;
+        case 1:
+            JokeFetch_chuck();
+            break;
+        case 2:
+            JokeFetch_Geek();
+            break;
+        default:
+            break;
+    }
+    NextImage(iAux + 1);
+}
+function NextImage(iIndex) {
+    var div_main = document.getElementById("main");
+    var url = "./images/blob-" + iIndex + ".svg";
+    div_main.style.backgroundImage = 'url(' + url + ')';
+    console.log(url);
 }
 function Score(iScore) {
     // console.log("La puntuación ha sido " + iScore);
@@ -110,7 +125,7 @@ function GetWeather() {
         return response.json();
     })
         .then(function (json) {
-        document.getElementById("weather_txt").innerText = json['current']['condition'].text;
+        document.getElementById("weather_txt").innerText = json['current'].temp_c + "ºC, " + json['current']['condition'].text;
         var image = document.getElementById("weather_ico");
         image.src = json['current']['condition'].icon.replace('//', 'http://');
         console.log(json['current']['condition'].icon);

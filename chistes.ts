@@ -64,7 +64,7 @@ function JokeFetch_dad(){
 function JokeFetch_chuck(){
     console.log("chuck_joke");
     fetch('https://api.chucknorris.io/jokes/random', {
-        method: "GET")
+        method: "GET"})
         .then(response => response.json())
         .then(json => {
                         document.getElementById("currentJoke").innerText = json.value;
@@ -99,14 +99,30 @@ function JokeFetch_Geek(){
 
 function NextJoke():void {
 
-    let iAux = Math.floor(Math.random() * 10);
+    let iAux = Math.floor(Math.random() * 3);
+    console.log(iAux);
 
-    if(iAux>=0 && iAux<3)
-        JokeFetch_dad();
-    else if (iAux>=3 && iAux<7)
-        JokeFetch_chuck();
-    else if (iAux>=7 && iAux<9)
-        JokeFetch_Geek();
+    switch (iAux) {
+        case 0:
+            JokeFetch_dad();            
+            break;
+        case 1:
+            JokeFetch_chuck();        
+            break;
+        case 2:
+            JokeFetch_Geek();    
+            break;
+        default:
+            break;
+    }
+    NextImage(iAux+1);
+}
+
+function NextImage(iIndex:number):void{
+    let div_main:HTMLElement  = document.getElementById("main");
+    let url = "./images/blob-"+iIndex+".svg";
+    div_main.style.backgroundImage = 'url(' + url + ')';
+    console.log(url);
 }
 
 function Score(iScore:number) {
@@ -136,7 +152,7 @@ function GetWeather(){
         .then(response => { console.log(response);
                             return response.json();})
         .then(json => {
-            document.getElementById("weather_txt").innerText = json['current']['condition'].text;
+            document.getElementById("weather_txt").innerText = json['current'].temp_c +"ºC, "+ json['current']['condition'].text;
             let image:HTMLImageElement  = document.getElementById("weather_ico");
             image.src = json['current']['condition'].icon.replace('//','http://');
             console.log(json['current']['condition'].icon);
